@@ -1,8 +1,11 @@
 /******************************************************************************
-* File Name:   clock.h
+* File Name:   dps.h
 *
 * Description: This file contains the function prototypes and constants used
-*   in clock.c.
+*   in dps.c.
+*
+* Related Document: See README.md
+*
 *
 *******************************************************************************
 * Copyright 2024, Cypress Semiconductor Corporation (an Infineon company) or
@@ -37,13 +40,23 @@
 * so agrees to indemnify Cypress against all liability.
 *******************************************************************************/
 
-#ifndef SOURCE_CLOCK_H_
-#define SOURCE_CLOCK_H_
+#ifndef PRESSURE_H_
+#define PRESSURE_H_
 
-#include <stdint.h>
+/******************************************************************************
+ * Global Variables
+ *****************************************************************************/
+extern volatile bool dps_flag;
 
-void clock_init();
-void clock_update();
-uint32_t clock_get_ms();
+/******************************************************************************
+ * Macros
+ *****************************************************************************/
+#define DPS_AXIS 2
 
-#endif /* SOURCE_CLOCK_H_ */
+/*******************************************************************************
+* Function Prototypes
+*******************************************************************************/
+cy_rslt_t dps_init(void);
+cy_rslt_t dps_get_data(float *dps_data);
+
+#endif /* PRESSURE_H_ */

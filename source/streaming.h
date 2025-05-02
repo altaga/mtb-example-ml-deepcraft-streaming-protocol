@@ -1,8 +1,8 @@
 /******************************************************************************
-* File Name:   clock.h
+* File Name:   streaming.h
 *
 * Description: This file contains the function prototypes and constants used
-*   in clock.c.
+*   in streaming.c.
 *
 *******************************************************************************
 * Copyright 2024, Cypress Semiconductor Corporation (an Infineon company) or
@@ -37,13 +37,23 @@
 * so agrees to indemnify Cypress against all liability.
 *******************************************************************************/
 
-#ifndef SOURCE_CLOCK_H_
-#define SOURCE_CLOCK_H_
+#include "cy_result.h"
+#include "cy_utils.h"
+#include "cyhal.h"
 
-#include <stdint.h>
+/*******************************************************************************
+* Function Prototypes
+*******************************************************************************/
+void streaming_init();
+void streaming_send(const void* data, size_t size);
+size_t streaming_receive(void* data, size_t size);
 
-void clock_init();
-void clock_update();
-uint32_t clock_get_ms();
-
-#endif /* SOURCE_CLOCK_H_ */
+static inline void HALT_ON_ERROR(cy_rslt_t result)
+{
+    cy_rslt_decode_t decoded;
+    decoded.raw = result;
+    if (CY_RSLT_SUCCESS != decoded.raw)
+    {
+        CY_HALT();
+    }
+}

@@ -1,8 +1,10 @@
 /******************************************************************************
-* File Name:   clock.h
+* File Name:   radar.h
 *
 * Description: This file contains the function prototypes and constants used
-*   in clock.c.
+*   in radar.c.
+*
+* Related Document: See README.md
 *
 *******************************************************************************
 * Copyright 2024, Cypress Semiconductor Corporation (an Infineon company) or
@@ -37,13 +39,26 @@
 * so agrees to indemnify Cypress against all liability.
 *******************************************************************************/
 
-#ifndef SOURCE_CLOCK_H_
-#define SOURCE_CLOCK_H_
+#ifndef RADAR_H_
+#define RADAR_H_
 
-#include <stdint.h>
+#include "cy_result.h"
+#include "stdbool.h"
 
-void clock_init();
-void clock_update();
-uint32_t clock_get_ms();
+/******************************************************************************
+ * Global Variables
+ *****************************************************************************/
+cy_rslt_t radar_init(void);
 
-#endif /* SOURCE_CLOCK_H_ */
+/******************************************************************************
+ * Macros
+ *****************************************************************************/
+#define RADAR_AXIS 2048
+
+/*******************************************************************************
+* Function Prototypes
+*******************************************************************************/
+extern volatile bool radar_flag;
+void radar_get_data(int16_t *radar_data);
+
+#endif /* RADAR_H_ */

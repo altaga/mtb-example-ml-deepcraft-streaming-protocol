@@ -1,8 +1,8 @@
 /******************************************************************************
-* File Name:   clock.h
+* File Name:   audio.h
 *
-* Description: This file contains the function prototypes and constants used
-*   in clock.c.
+* Description: This file contains the function prototypes and variables
+*              used in audio.c.
 *
 *******************************************************************************
 * Copyright 2024, Cypress Semiconductor Corporation (an Infineon company) or
@@ -37,13 +37,26 @@
 * so agrees to indemnify Cypress against all liability.
 *******************************************************************************/
 
-#ifndef SOURCE_CLOCK_H_
-#define SOURCE_CLOCK_H_
+#ifndef SOURCE_AUDIO_H_
+#define SOURCE_AUDIO_H_
 
-#include <stdint.h>
+#include "stdbool.h"
 
-void clock_init();
-void clock_update();
-uint32_t clock_get_ms();
+/******************************************************************************
+ * Constants
+ *****************************************************************************/
+/* Define how many samples in a frame */
+#define FRAME_SIZE                  (1024)
 
-#endif /* SOURCE_CLOCK_H_ */
+/******************************************************************************
+ * Global Variables
+ *****************************************************************************/
+extern volatile bool pdm_pcm_flag;
+
+/*******************************************************************************
+* Function Prototypes
+*******************************************************************************/
+cy_rslt_t pdm_init(void);
+void pdm_preprocessing_feed(int16_t *preprocessed_data);
+
+#endif /* SOURCE_AUDIO_H_ */

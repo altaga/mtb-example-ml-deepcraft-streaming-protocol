@@ -1,8 +1,11 @@
 /******************************************************************************
-* File Name:   clock.h
+* File Name:   gyro.h
 *
 * Description: This file contains the function prototypes and constants used
-*   in clock.c.
+*   in gyro.c.
+*
+* Related Document: See README.md
+*
 *
 *******************************************************************************
 * Copyright 2024, Cypress Semiconductor Corporation (an Infineon company) or
@@ -37,13 +40,26 @@
 * so agrees to indemnify Cypress against all liability.
 *******************************************************************************/
 
-#ifndef SOURCE_CLOCK_H_
-#define SOURCE_CLOCK_H_
+#ifndef SOURCE_GYRO_H_
+#define SOURCE_GYRO_H_
 
-#include <stdint.h>
+#include "cy_result.h"
+#include "stdbool.h"
+/******************************************************************************
+ * Global Variables
+ *****************************************************************************/
+extern volatile bool gyro_flag;
 
-void clock_init();
-void clock_update();
-uint32_t clock_get_ms();
+/******************************************************************************
+ * Macros
+ *****************************************************************************/
+#define GYRO_AXIS 3
 
-#endif /* SOURCE_CLOCK_H_ */
+/*******************************************************************************
+* Function Prototypes
+*******************************************************************************/
+cy_rslt_t gyro_init(void);
+void gyro_get_data(float *imu_data);
+
+
+#endif /* SOURCE_GYRO_H_ */

@@ -1,8 +1,8 @@
 /******************************************************************************
-* File Name:   clock.h
+* File Name:   protocol.h
 *
 * Description: This file contains the function prototypes and constants used
-*   in clock.c.
+*   in protocol.c.
 *
 *******************************************************************************
 * Copyright 2024, Cypress Semiconductor Corporation (an Infineon company) or
@@ -36,14 +36,22 @@
 * of such system or application assumes all risk of such use and in doing
 * so agrees to indemnify Cypress against all liability.
 *******************************************************************************/
+#ifndef SOURCE_PROTOCOL_H_
+#define SOURCE_PROTOCOL_H_
 
-#ifndef SOURCE_CLOCK_H_
-#define SOURCE_CLOCK_H_
+#include "cy_utils.h"
+#include "stdlib.h"
+#include "streaming.h"
 
-#include <stdint.h>
+#define PROTOCOL_AUDIO_CHANNEL 1
+#define PROTOCOL_IMU_CHANNEL 2
+#define PROTOCOL_BMM_CHANNEL 3
+#define PROTOCOL_RADAR_CHANNEL 4
+#define PROTOCOL_DPS_CHANNEL 5
+#define PROTOCOL_GYRO_CHANNEL 6
 
-void clock_init();
-void clock_update();
-uint32_t clock_get_ms();
+void protocol_init();
+void protocol_repl();
+void protocol_send(uint8_t channel, const uint8_t* data, size_t count);
 
-#endif /* SOURCE_CLOCK_H_ */
+#endif /* SOURCE_PROTOCOL_H_ */

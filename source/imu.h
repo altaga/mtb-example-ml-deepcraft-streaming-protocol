@@ -1,8 +1,11 @@
 /******************************************************************************
-* File Name:   clock.h
+* File Name:   imu.h
 *
 * Description: This file contains the function prototypes and constants used
-*   in clock.c.
+*   in imu.c.
+*
+* Related Document: See README.md
+*
 *
 *******************************************************************************
 * Copyright 2024, Cypress Semiconductor Corporation (an Infineon company) or
@@ -36,14 +39,26 @@
 * of such system or application assumes all risk of such use and in doing
 * so agrees to indemnify Cypress against all liability.
 *******************************************************************************/
+#ifndef IMU_H
+#define IMU_H
 
-#ifndef SOURCE_CLOCK_H_
-#define SOURCE_CLOCK_H_
+#include "cy_result.h"
+#include "stdbool.h"
 
-#include <stdint.h>
+/******************************************************************************
+ * Global Variables
+ *****************************************************************************/
+extern volatile bool imu_flag;
 
-void clock_init();
-void clock_update();
-uint32_t clock_get_ms();
+/******************************************************************************
+ * Macros
+ *****************************************************************************/
+#define IMU_AXIS 3
 
-#endif /* SOURCE_CLOCK_H_ */
+/*******************************************************************************
+* Function Prototypes
+*******************************************************************************/
+cy_rslt_t imu_init(void);
+void imu_get_data(float *imu_data);
+
+#endif /* IMU_H */

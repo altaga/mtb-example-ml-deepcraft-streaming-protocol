@@ -1,8 +1,9 @@
 /******************************************************************************
-* File Name:   clock.h
+* File Name:   config.h
 *
-* Description: This file contains the function prototypes and constants used
-*   in clock.c.
+* Description: This file contains the configuration for the microphone and IMU.
+*
+* Related Document: See README.md
 *
 *******************************************************************************
 * Copyright 2024, Cypress Semiconductor Corporation (an Infineon company) or
@@ -37,13 +38,43 @@
 * so agrees to indemnify Cypress against all liability.
 *******************************************************************************/
 
-#ifndef SOURCE_CLOCK_H_
-#define SOURCE_CLOCK_H_
+#ifndef CONFIG_H
+#define CONFIG_H
+#include "cyhal.h"
 
-#include <stdint.h>
+/******************************************************************************
+ * Constants
+ *****************************************************************************/
+extern cyhal_i2c_t i2c;
+extern cyhal_spi_t spi;
 
-void clock_init();
-void clock_update();
-uint32_t clock_get_ms();
+/* Set IMU_SAMPLE_RATE to one of the following
+ * BMI160_ACCEL_ODR_400HZ / BMI2_ACC_ODR_400HZ
+ * BMI160_ACCEL_ODR_200HZ / BMI2_ACC_ODR_200HZ
+ * BMI160_ACCEL_ODR_100HZ / BMI2_ACC_ODR_100HZ
+ * BMI160_ACCEL_ODR_50HZ / BMI2_ACC_ODR_50HZ */
+#ifdef CY_BMI_270_IMU_I2C
+#define IMU_SAMPLE_RATE BMI2_ACC_ODR_50HZ
+#else
+#define IMU_SAMPLE_RATE BMI160_ACCEL_ODR_50HZ
+#endif
 
-#endif /* SOURCE_CLOCK_H_ */
+/*Set IMU_SAMPLE_RANGE to one of the following
+ * BMI160_ACCEL_RANGE_2G / BMI2_ACC_RANGE_2G
+ * BMI160_ACCEL_RANGE_4G / BMI2_ACC_RANGE_4G
+ * BMI160_ACCEL_RANGE_8G / BMI2_ACC_RANGE_8G
+ * BMI160_ACCEL_RANGE_16G / BMI2_ACC_RANGE_16G */
+#ifdef CY_BMI_270_IMU_I2C
+#define IMU_SAMPLE_RANGE BMI2_ACC_RANGE_8G
+#else
+#define IMU_SAMPLE_RANGE BMI160_ACCEL_RANGE_8G
+#endif /* CONFIG_H */
+
+/* PDM sample rates */
+#define SAMPLE_RATE_8_KHZ    8000u
+#define SAMPLE_RATE_16_KHZ   16000u
+
+/* Change below to SAMPLE_RATE_8_KHZ or SAMPLE_RATE_16_KHZ */
+#define PDM_SAMPLE_RATE SAMPLE_RATE_16_KHZ
+
+#endif
